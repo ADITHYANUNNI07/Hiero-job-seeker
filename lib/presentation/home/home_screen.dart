@@ -214,85 +214,90 @@ class JobPostContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PaddingContainerWidget(
-      color: colorAppLight,
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      children: [
+        PaddingContainerWidget(
+          color: colorAppLight,
+          child: Column(
             children: [
-              const CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/th.jpeg'),
-                  radius: 30),
-              sizedBox10W,
-              SizedBox(
-                height: 60,
-                width: size.width - 114 - 70,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Community Management',
-                      style: companyDesignationTitle,
-                      overflow: TextOverflow.ellipsis,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/th.jpeg'),
+                      radius: 30),
+                  sizedBox10W,
+                  SizedBox(
+                    height: 60,
+                    width: size.width - 114 - 70,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Community Management',
+                          style: companyDesignationTitle,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          'Finari Services Private Limited',
+                          style: companyNameTitle,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      ],
                     ),
-                    Text(
-                      'Finari Services Private Limited',
-                      style: companyNameTitle,
-                      overflow: TextOverflow.ellipsis,
-                    )
-                  ],
-                ),
+                  ),
+                  const Spacer(),
+                  const TimeDurationContainerWidget(
+                    title: 'NOW',
+                    color: colorApp,
+                    lightColor: colorAppLight,
+                  )
+                ],
               ),
-              const Spacer(),
-              const TimeDurationContainerWidget(
-                title: 'NOW',
-                color: colorApp,
-                lightColor: colorAppLight,
-              )
-            ],
-          ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              PaddingContainerWidget(
-                padding: 8,
-                color: colorWhite,
-                child: Row(
-                  children: [
-                    FaIcon(FontAwesomeIcons.house, size: 15),
-                    sizedBox10W,
-                    Text('Work from home')
-                  ],
-                ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PaddingContainerWidget(
+                    padding: 8,
+                    color: colorWhite,
+                    child: Row(
+                      children: [
+                        FaIcon(FontAwesomeIcons.house, size: 15),
+                        sizedBox10W,
+                        Text('Work from home')
+                      ],
+                    ),
+                  ),
+                ],
               ),
+              sizedBox15H,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  JobSDateExpWidget(
+                      iconData: FontAwesomeIcons.play,
+                      title: 'START DATE',
+                      subtitle: 'Immediately',
+                      color: colorApp),
+                  JobSDateExpWidget(
+                      iconData: FontAwesomeIcons.calendarDay,
+                      title: 'EXPERIENCE',
+                      subtitle: '1-5 Years',
+                      color: colorApp),
+                  JobSDateExpWidget(
+                      iconData: FontAwesomeIcons.piggyBank,
+                      title: 'CTC(Annual)',
+                      subtitle: '₹ 3 - 5 L',
+                      color: colorApp),
+                ],
+              ),
+              sizedBox15H,
             ],
           ),
-          sizedBox15H,
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              JobSDateExpWidget(
-                  iconData: FontAwesomeIcons.play,
-                  title: 'START DATE',
-                  subtitle: 'Immediately',
-                  color: colorApp),
-              JobSDateExpWidget(
-                  iconData: FontAwesomeIcons.calendarDay,
-                  title: 'EXPERIENCE',
-                  subtitle: '1-5 Years',
-                  color: colorApp),
-              JobSDateExpWidget(
-                  iconData: FontAwesomeIcons.piggyBank,
-                  title: 'CTC(Annual)',
-                  subtitle: '₹ 3 - 5 L',
-                  color: colorApp),
-            ],
-          ),
-          sizedBox15H,
-        ],
-      ),
+        ),
+        sizedBox10H
+      ],
     );
   }
 }

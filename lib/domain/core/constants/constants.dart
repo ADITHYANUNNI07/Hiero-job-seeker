@@ -8,8 +8,7 @@ const sizedBox25H = SizedBox(height: 25);
 const sizedBox5W = SizedBox(width: 5);
 const sizedBox10W = SizedBox(width: 10);
 const sizedBox15W = SizedBox(width: 15);
-const String failImageUrl =
-    'https://ichef.bbci.co.uk/news/1024/branded_news/83B3/production/_115651733_breaking-large-promo-nc.png';
+
 TextStyle? mainTitle = const TextStyle(
   fontSize: 35,
   fontWeight: FontWeight.bold,
@@ -19,7 +18,7 @@ TextStyle? mediumTitle = const TextStyle(
   fontWeight: FontWeight.bold,
 );
 TextStyle? mediumsubTitle = const TextStyle(
-    fontSize: 18, fontWeight: FontWeight.normal, color: Colors.grey);
+    fontSize: 15, fontWeight: FontWeight.normal, color: Colors.grey);
 TextStyle? mediumlightTitle = const TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.w700,

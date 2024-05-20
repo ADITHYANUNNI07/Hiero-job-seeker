@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: customPrimaryColor,
-          scaffoldBackgroundColor: const Color(0xFFFBF8FE),
+          scaffoldBackgroundColor: scaffoldBackgroundColor,
           primaryColor: const Color(0xFF390D72),
           iconTheme: const IconThemeData(color: Color(0xFF390D72)),
           buttonTheme: const ButtonThemeData(

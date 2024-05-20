@@ -11,6 +11,7 @@ const Color colorGreyjob = Color(0xff384144);
 const Color colorRed = Colors.red;
 const Color colorGreen = Colors.green;
 const colorGrey = Colors.grey;
+const scaffoldBackgroundColor = Color(0xFFFBF8FE);
 const MaterialColor customPrimaryColor = MaterialColor(0xFF390D72, <int, Color>{
   50: Color(0xFF390D72),
   100: Color(0xFF390D72),

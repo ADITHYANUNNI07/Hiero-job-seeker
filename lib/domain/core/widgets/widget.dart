@@ -122,6 +122,8 @@ class ElevatedBtnWidget extends StatelessWidget {
     this.leading,
     this.titleColor,
     this.padding,
+    this.elevation,
+    this.borderRadius,
   });
   final void Function()? onPressed;
   final String title;
@@ -130,6 +132,8 @@ class ElevatedBtnWidget extends StatelessWidget {
   final Widget? leading;
   final Color? titleColor;
   final double? padding;
+  final double? elevation;
+  final double? borderRadius;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -138,8 +142,9 @@ class ElevatedBtnWidget extends StatelessWidget {
         padding: padding == null
             ? const EdgeInsets.all(9)
             : EdgeInsets.all(padding!),
+        elevation: elevation,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(borderRadius ?? 5),
           side: BorderSide(color: borderColor ?? Colors.transparent),
         ),
         backgroundColor: btnColor ?? Colors.transparent,
@@ -169,19 +174,44 @@ class PaddingContainerWidget extends StatelessWidget {
     required this.color,
     this.padding,
     this.width,
+    this.isNew = false,
+    this.isNewcolor,
   });
+  final bool isNew;
   final Widget? child;
   final Color? color;
+  final Color? isNewcolor;
   final double? padding;
   final double? width;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: width,
-        padding: EdgeInsets.all(padding ?? 12),
-        decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(10)),
-        child: child);
+    return isNew
+        ? Stack(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 5, right: 5),
+                child: Container(
+                    width: width,
+                    padding: EdgeInsets.all(padding ?? 12),
+                    decoration: BoxDecoration(
+                        color: color, borderRadius: BorderRadius.circular(10)),
+                    child: child),
+              ),
+              Positioned(
+                  right: 0,
+                  child: CircleAvatar(
+                    radius: 10,
+                    backgroundColor: isNewcolor ?? scaffoldBackgroundColor,
+                    child: const CircleAvatar(radius: 7),
+                  )),
+            ],
+          )
+        : Container(
+            width: width,
+            padding: EdgeInsets.all(padding ?? 12),
+            decoration: BoxDecoration(
+                color: color, borderRadius: BorderRadius.circular(10)),
+            child: child);
   }
 }
 
@@ -256,12 +286,11 @@ class _JobFilterAlertBoxState extends State<JobFilterAlertBox> {
           ),
           Text(
               'Selected Salary: ${salaryProvider.selectedSalary.toStringAsFixed(0)}'),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Apply Filters'),
-          ),
+          ElevatedBtnWidget(
+            onPressed: () {},
+            title: 'Selected',
+            btnColor: colorApp,
+          )
         ],
       ),
     );
