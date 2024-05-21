@@ -7,12 +7,13 @@ import 'package:hiero_job_seeker/domain/core/widgets/textfields.dart';
 import 'package:provider/provider.dart';
 
 class TopColorSafeArea extends StatelessWidget {
-  const TopColorSafeArea({super.key, this.child});
+  const TopColorSafeArea({super.key, this.child, this.color});
   final Widget? child;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: colorApp,
+      color: color ?? colorApp,
       child: child,
     );
   }
@@ -21,7 +22,7 @@ class TopColorSafeArea extends StatelessWidget {
 class TextFormWidget extends StatelessWidget {
   const TextFormWidget({
     super.key,
-    required this.label,
+    this.label,
     this.controller,
     this.validator,
     required this.icon,
@@ -36,8 +37,9 @@ class TextFormWidget extends StatelessWidget {
     this.suffix,
     this.isNolabel = false,
     this.isSearchFilter = false,
+    this.radiusMessage,
   });
-  final String label;
+  final String? label;
   final String? hintText;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
@@ -52,15 +54,16 @@ class TextFormWidget extends StatelessWidget {
   final Widget? suffix;
   final bool isNolabel;
   final bool isSearchFilter;
+  final double? radiusMessage;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        sizedBox15H,
+        !isNolabel ? sizedBox15H : Container(),
         !isNolabel
             ? Text(
-                label,
+                label ?? '',
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               )
@@ -97,9 +100,11 @@ class TextFormWidget extends StatelessWidget {
                   ),
             border: OutlineInputBorder(
               borderRadius: isSearchFilter
-                  ? const BorderRadius.only(
-                      bottomLeft: Radius.circular(5),
-                      topLeft: Radius.circular(5))
+                  ? BorderRadius.only(
+                      bottomLeft: Radius.circular(radiusMessage ?? 5),
+                      topLeft: Radius.circular(radiusMessage ?? 5),
+                      bottomRight: Radius.circular(radiusMessage ?? 0),
+                      topRight: Radius.circular(radiusMessage ?? 0))
                   : const BorderRadius.all(Radius.circular(5)),
               borderSide: isSearchFilter ? BorderSide.none : const BorderSide(),
             ),

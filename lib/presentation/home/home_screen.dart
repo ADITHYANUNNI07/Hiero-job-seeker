@@ -65,90 +65,7 @@ class HomeScrn extends StatelessWidget {
           sizedBox10H,
           const RowMainTitleWidget(title: 'Recent Internship'),
           sizedBox10H,
-          PaddingContainerWidget(
-            color: colorInternshipAppLight,
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/th.jpeg'),
-                        radius: 30),
-                    sizedBox10W,
-                    SizedBox(
-                      height: 60,
-                      width: size.width - 114 - 70,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Community Management',
-                            style: companyDesignationTitle,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            'Finari Services Private Limited',
-                            style: companyNameTitle,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                    const TimeDurationContainerWidget(
-                      title: 'NOW',
-                      color: colorInternshipApp,
-                      lightColor: colorInternshipAppLight,
-                    )
-                  ],
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    PaddingContainerWidget(
-                      padding: 8,
-                      color: colorWhite,
-                      child: Row(
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.house,
-                            size: 15,
-                            color: colorInternshipApp,
-                          ),
-                          sizedBox10W,
-                          Text('Work from home')
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                sizedBox15H,
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    JobSDateExpWidget(
-                        iconData: FontAwesomeIcons.play,
-                        title: 'START DATE',
-                        subtitle: 'Immediately',
-                        color: colorInternshipApp),
-                    JobSDateExpWidget(
-                        iconData: FontAwesomeIcons.calendarDay,
-                        title: 'DURATION',
-                        subtitle: '1-5 Months',
-                        color: colorInternshipApp),
-                    JobSDateExpWidget(
-                        iconData: FontAwesomeIcons.piggyBank,
-                        title: 'STIPEND',
-                        subtitle: '₹ 8 - 15 k',
-                        color: colorInternshipApp),
-                  ],
-                ),
-                sizedBox15H,
-              ],
-            ),
-          ),
+          InternshipPostWidget(size: size),
           sizedBox10H,
           const RowMainTitleWidget(title: 'Connections'),
           sizedBox10H,
@@ -200,6 +117,108 @@ class HomeScrn extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class InternshipPostWidget extends StatelessWidget {
+  const InternshipPostWidget({
+    super.key,
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        PaddingContainerWidget(
+          color: colorInternshipAppLight,
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/th.jpeg'),
+                      radius: 30),
+                  sizedBox10W,
+                  SizedBox(
+                    height: 60,
+                    width: size.width - 114 - 70,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Community Management',
+                          style: companyDesignationTitle,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          'Finari Services Private Limited',
+                          style: companyNameTitle,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  const TimeDurationContainerWidget(
+                    title: 'NOW',
+                    color: colorInternshipApp,
+                    lightColor: colorInternshipAppLight,
+                  )
+                ],
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PaddingContainerWidget(
+                    padding: 8,
+                    color: colorWhite,
+                    child: Row(
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.house,
+                          size: 15,
+                          color: colorInternshipApp,
+                        ),
+                        sizedBox10W,
+                        Text('Work from home')
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              sizedBox15H,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  JobSDateExpWidget(
+                      iconData: FontAwesomeIcons.play,
+                      title: 'START DATE',
+                      subtitle: 'Immediately',
+                      color: colorInternshipApp),
+                  JobSDateExpWidget(
+                      iconData: FontAwesomeIcons.calendarDay,
+                      title: 'DURATION',
+                      subtitle: '1-5 Months',
+                      color: colorInternshipApp),
+                  JobSDateExpWidget(
+                      iconData: FontAwesomeIcons.piggyBank,
+                      title: 'STIPEND',
+                      subtitle: '₹ 8 - 15 k',
+                      color: colorInternshipApp),
+                ],
+              ),
+              sizedBox15H,
+            ],
+          ),
+        ),
+        sizedBox10H
+      ],
     );
   }
 }
@@ -415,10 +434,12 @@ class SearchFilterWidget extends StatelessWidget {
     super.key,
     required this.size,
     required this.onTap,
+    this.filterColor,
   });
 
   final Size size;
   final void Function()? onTap;
+  final Color? filterColor;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -437,9 +458,9 @@ class SearchFilterWidget extends StatelessWidget {
           child: Container(
             color: colorWhite,
             height: 59,
-            child: const PaddingContainerWidget(
-                color: colorApp,
-                child: Padding(
+            child: PaddingContainerWidget(
+                color: filterColor ?? colorApp,
+                child: const Padding(
                   padding: EdgeInsets.only(top: 5),
                   child: FaIcon(
                     FontAwesomeIcons.filter,

@@ -75,6 +75,7 @@ class DashboardScrn extends StatelessWidget {
                       GButton(
                         icon: Icons.handshake_outlined,
                         text: 'Intership',
+                        backgroundColor: colorInternshipApp,
                       )
                     ],
                   ),
