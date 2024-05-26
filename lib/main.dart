@@ -2,14 +2,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hiero_job_seeker/domain/core/colors/colors.dart';
-import 'package:hiero_job_seeker/domain/core/provider/provider.dart';
+import 'package:hiero_job_seeker/application/auth/auth_provider.dart';
+import 'package:hiero_job_seeker/core/colors/colors.dart';
+import 'package:hiero_job_seeker/core/provider/provider.dart';
 import 'package:hiero_job_seeker/presentation/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+import 'domain/di/injectable.dart';
 
-void main(List<String> args) async {
+Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+  await configureInjection();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
@@ -29,6 +32,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => JobFilterProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AuthRepositoryProvider(),
         )
       ],
       child: GetMaterialApp(

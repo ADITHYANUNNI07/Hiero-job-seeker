@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hiero_job_seeker/domain/core/colors/colors.dart';
-import 'package:hiero_job_seeker/domain/core/widgets/widget.dart';
+import 'package:hiero_job_seeker/core/colors/colors.dart';
+import 'package:hiero_job_seeker/core/widgets/widget.dart';
 import 'package:hiero_job_seeker/presentation/chat/chat_screen.dart';
 import 'package:hiero_job_seeker/presentation/home/home_screen.dart';
 import 'package:hiero_job_seeker/presentation/internship/internship_screen.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hiero_job_seeker/domain/core/colors/colors.dart';
-import 'package:hiero_job_seeker/domain/core/widgets/widget.dart';
+import 'package:hiero_job_seeker/core/colors/colors.dart';
+import 'package:hiero_job_seeker/core/widgets/widget.dart';
 import 'package:hiero_job_seeker/presentation/login/login_screen.dart';
 import 'package:hiero_job_seeker/presentation/signup/signup_screen.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';

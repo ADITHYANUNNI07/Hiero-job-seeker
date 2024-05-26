@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hiero_job_seeker/domain/core/colors/colors.dart';
-import 'package:hiero_job_seeker/domain/core/constants/constants.dart';
-import 'package:hiero_job_seeker/domain/core/widgets/widget.dart';
+import 'package:hiero_job_seeker/core/colors/colors.dart';
+import 'package:hiero_job_seeker/core/constants/constants.dart';
+import 'package:hiero_job_seeker/core/widgets/widget.dart';
 
 class NotificationScrn extends StatelessWidget {
   const NotificationScrn({super.key});

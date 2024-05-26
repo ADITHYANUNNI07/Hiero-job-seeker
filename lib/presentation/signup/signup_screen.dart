@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hiero_job_seeker/domain/core/colors/colors.dart';
-import 'package:hiero_job_seeker/domain/core/constants/constants.dart';
-import 'package:hiero_job_seeker/domain/core/provider/provider.dart';
-import 'package:hiero_job_seeker/domain/core/widgets/textfields.dart';
-import 'package:hiero_job_seeker/domain/core/widgets/widget.dart';
+import 'package:hiero_job_seeker/core/colors/colors.dart';
+import 'package:hiero_job_seeker/core/constants/constants.dart';
+import 'package:hiero_job_seeker/core/provider/provider.dart';
+import 'package:hiero_job_seeker/core/widgets/textfields.dart';
+import 'package:hiero_job_seeker/core/widgets/widget.dart';
 import 'package:hiero_job_seeker/presentation/login/login_screen.dart';
 import 'package:hiero_job_seeker/presentation/signup/functions/fun_signup.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +64,7 @@ class SignupScreen extends StatelessWidget {
                         sizedBox10H,
                         ElevatedBtnWidget(
                           onPressed: () {
-                            signupFun(signupformKey);
+                            signupFun(signupformKey, context);
                           },
                           title: 'SIGNUP',
                           btnColor: colorApp,

@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hiero_job_seeker/domain/core/colors/colors.dart';
-import 'package:hiero_job_seeker/domain/core/constants/constants.dart';
-import 'package:hiero_job_seeker/domain/core/widgets/widget.dart';
+import 'package:hiero_job_seeker/core/colors/colors.dart';
+import 'package:hiero_job_seeker/core/constants/constants.dart';
+import 'package:hiero_job_seeker/core/widgets/widget.dart';
 import 'package:hiero_job_seeker/presentation/chat/chat_message.dart';
 
 class ChatScrn extends StatelessWidget {

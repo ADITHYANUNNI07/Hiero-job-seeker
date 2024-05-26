@@ -1,6 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hiero_job_seeker/application/auth/auth_provider.dart';
 import 'package:hiero_job_seeker/infrastructure/models/usermodels.dart';
+import 'package:hiero_job_seeker/presentation/dashboard/dashboard_screen.dart';
+import 'package:provider/provider.dart';
 
 String verificationID = '';
 
@@ -23,18 +29,25 @@ class AuthServiceClass {
   }
 
 //signUp
-  Future createUserAccount(UserModel userModel) async {
+  Future createUserAccount(UserModel userModel, BuildContext context) async {
     try {
       User user = (await firebaseAuth.createUserWithEmailAndPassword(
               email: userModel.email, password: userModel.password))
           .user!;
-      // ignore: unnecessary_null_comparison
+
       if (user != null) {
-        print('truecccccccc');
-        //call our database service to update the user data
-        // await DatabaseService(uid: user.uid)
-        //     .savingUserData(fullname, email, phone, adKey);
-        return true;
+        AuthRepositoryProvider authRepository =
+            Provider.of<AuthRepositoryProvider>(context, listen: false);
+        String result = await authRepository.signup(userModel);
+        if (result == 'success') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DashboardScrn()),
+          );
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(result)));
+        }
       }
     } on FirebaseAuthException catch (e) {
       return e.message;
