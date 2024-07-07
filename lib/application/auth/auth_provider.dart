@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hiero_job_seeker/domain/core/constant.dart';
+import 'package:hiero_job_seeker/core/config/api_config.dart';
 import 'package:hiero_job_seeker/infrastructure/helper/sharedpreference.dart';
 import 'package:hiero_job_seeker/infrastructure/models/usermodels.dart';
 
@@ -14,7 +14,7 @@ class AuthRepositoryProvider with ChangeNotifier {
   Future<String> signup(UserModel jobSekeerModel) async {
     try {
       final response = await dio.post(
-        '$baseUrl$signupEndpoint',
+        '${AppDevConfig.baseURL}$signupEndpoint',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ class AuthRepositoryProvider with ChangeNotifier {
 
   Future<String> login(UserModel usermodel) async {
     try {
-      final response = await dio.post('$baseUrl$loginEndpoint',
+      final response = await dio.post('${AppDevConfig.baseURL}$loginEndpoint',
           options: Options(
             headers: {
               'Content-Type': 'application/json',

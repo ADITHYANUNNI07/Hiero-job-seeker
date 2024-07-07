@@ -4,7 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hiero_job_seeker/core/colors/colors.dart';
 import 'package:hiero_job_seeker/core/constants/constants.dart';
 import 'package:hiero_job_seeker/core/widgets/widget.dart';
+import 'package:hiero_job_seeker/infrastructure/models/jobmodel.dart';
+import 'package:hiero_job_seeker/presentation/home/widget/home_widget.dart';
 import 'package:hiero_job_seeker/presentation/job%20post/job_post.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 class HomeScrn extends StatelessWidget {
@@ -56,11 +59,11 @@ class HomeScrn extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const JobPostScrn(),
+                  builder: (context) => JobPostScrn(jobModel: jobModel),
                 ),
               );
             },
-            child: JobPostContainerWidget(size: size),
+            child: JobPostContainerWidget(size: size, jobModel: jobModel),
           ),
           sizedBox10H,
           const RowMainTitleWidget(title: 'Recent Internship'),
@@ -227,8 +230,9 @@ class JobPostContainerWidget extends StatelessWidget {
   const JobPostContainerWidget({
     super.key,
     required this.size,
+    required this.jobModel,
   });
-
+  final JobModel jobModel;
   final Size size;
 
   @override
@@ -242,8 +246,9 @@ class JobPostContainerWidget extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/th.jpeg'),
+                  CircleAvatar(
+                      backgroundImage: AssetImage(
+                          jobModel.companyImageUrl ?? AppImage.companyPic),
                       radius: 30),
                   sizedBox10W,
                   SizedBox(
@@ -254,12 +259,12 @@ class JobPostContainerWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Community Management',
+                          jobModel.title,
                           style: companyDesignationTitle,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          'Finari Services Private Limited',
+                          jobModel.companyName ?? '',
                           style: companyNameTitle,
                           overflow: TextOverflow.ellipsis,
                         )
@@ -267,14 +272,15 @@ class JobPostContainerWidget extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  const TimeDurationContainerWidget(
-                    title: 'NOW',
+                  TimeDurationContainerWidget(
+                    title:
+                        getTimeDifference(jobModel.postedOn ?? DateTime.now()),
                     color: colorApp,
                     lightColor: colorAppLight,
                   )
                 ],
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   PaddingContainerWidget(
@@ -282,32 +288,33 @@ class JobPostContainerWidget extends StatelessWidget {
                     color: colorWhite,
                     child: Row(
                       children: [
-                        FaIcon(FontAwesomeIcons.house, size: 15),
+                        const FaIcon(FontAwesomeIcons.house, size: 15),
                         sizedBox10W,
-                        Text('Work from home')
+                        Text(jobModel.employmentType)
                       ],
                     ),
                   ),
                 ],
               ),
               sizedBox15H,
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   JobSDateExpWidget(
                       iconData: FontAwesomeIcons.play,
                       title: 'START DATE',
-                      subtitle: 'Immediately',
+                      subtitle: DateFormat('d MMM yyyy')
+                          .format(jobModel.startingDate),
                       color: colorApp),
                   JobSDateExpWidget(
                       iconData: FontAwesomeIcons.calendarDay,
                       title: 'EXPERIENCE',
-                      subtitle: '1-5 Years',
+                      subtitle: "${jobModel.yearOfExperience} Years",
                       color: colorApp),
                   JobSDateExpWidget(
                       iconData: FontAwesomeIcons.piggyBank,
                       title: 'CTC(Annual)',
-                      subtitle: '₹ 3 - 5 L',
+                      subtitle: jobModel.salary,
                       color: colorApp),
                 ],
               ),

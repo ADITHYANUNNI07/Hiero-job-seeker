@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hiero_job_seeker/core/constants/constants.dart';
 import 'package:hiero_job_seeker/core/widgets/widget.dart';
+import 'package:hiero_job_seeker/infrastructure/models/jobmodel.dart';
 import 'package:hiero_job_seeker/presentation/home/home_screen.dart';
 
 class JobScrn extends StatelessWidget {
@@ -30,7 +31,8 @@ class JobScrn extends StatelessWidget {
                 child: ListView(
                   children: List.generate(
                     10,
-                    (index) => JobPostContainerWidget(size: size),
+                    (index) =>
+                        JobPostContainerWidget(size: size, jobModel: jobModel),
                   ),
                 ),
               ),

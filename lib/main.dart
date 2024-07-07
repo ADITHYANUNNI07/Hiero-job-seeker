@@ -9,11 +9,9 @@ import 'package:hiero_job_seeker/infrastructure/helper/sharedpreference.dart';
 import 'package:hiero_job_seeker/presentation/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
-import 'domain/di/injectable.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureInjection();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
