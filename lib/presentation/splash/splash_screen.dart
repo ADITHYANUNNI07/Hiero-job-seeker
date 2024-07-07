@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hiero_job_seeker/core/colors/colors.dart';
 import 'package:hiero_job_seeker/core/constants/constants.dart';
+import 'package:hiero_job_seeker/infrastructure/helper/sharedpreference.dart';
 import 'package:hiero_job_seeker/presentation/splash/fun_splash.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,7 +16,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    splashtime();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<SharedPreferenceClass>(context, listen: false)
+          .getAccessTokenStatus();
+    });
+    splashtime(context);
     super.initState();
   }
 

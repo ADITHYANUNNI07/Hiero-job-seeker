@@ -1,9 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hiero_job_seeker/application/auth/auth_provider.dart';
+import 'package:hiero_job_seeker/core/notification/notification.dart';
+import 'package:hiero_job_seeker/core/widgets/textfields.dart';
 import 'package:hiero_job_seeker/infrastructure/models/usermodels.dart';
 import 'package:hiero_job_seeker/presentation/dashboard/dashboard_screen.dart';
 import 'package:provider/provider.dart';
@@ -13,22 +15,43 @@ String verificationID = '';
 class AuthServiceClass {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-//login
-  Future loginUserAccount(String email, String password) async {
+  Future loginUserAccount(UserModel userModel, BuildContext context) async {
     try {
       User user = (await firebaseAuth.signInWithEmailAndPassword(
-              email: email, password: password))
+              email: userModel.email, password: userModel.password))
           .user!;
-      // ignore: unnecessary_null_comparison
       if (user != null) {
+        AuthRepositoryProvider authRepository =
+            Provider.of<AuthRepositoryProvider>(context, listen: false);
+        String result = await authRepository.login(userModel);
+        if (result == 'success') {
+          await NotificationClass()
+              .snakBarSuccess('Login Successflly 👋😎', context);
+          TextFieldClass().clearAllSignupController();
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const DashboardScrn()),
+            (Route<dynamic> route) => false,
+          );
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(result)));
+        }
         return true;
       }
     } on FirebaseAuthException catch (e) {
+      if (e.message ==
+          'The supplied auth credential is incorrect, malformed or has expired.') {
+        await NotificationClass()
+            .snakBarError('E-mail and Password is incorrect 😖', context);
+      } else {
+        await NotificationClass().snakBarWarning('${e.message} 😖', context);
+      }
+
       return e.message;
     }
   }
 
-//signUp
   Future createUserAccount(UserModel userModel, BuildContext context) async {
     try {
       User user = (await firebaseAuth.createUserWithEmailAndPassword(
@@ -40,9 +63,13 @@ class AuthServiceClass {
             Provider.of<AuthRepositoryProvider>(context, listen: false);
         String result = await authRepository.signup(userModel);
         if (result == 'success') {
-          Navigator.push(
+          await NotificationClass()
+              .snakBarSuccess('Account created 👋😎', context);
+          TextFieldClass().clearAllSignupController();
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const DashboardScrn()),
+            (Route<dynamic> route) => false,
           );
         } else {
           ScaffoldMessenger.of(context)
@@ -50,29 +77,18 @@ class AuthServiceClass {
         }
       }
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      await NotificationClass().snakBarWarning('${e.message}😖', context);
+      return;
     }
   }
-  // final GetxSnackBarControllerClass controller =
-  //  Get.put(GetxSnackBarControllerClass());
-
-  //final SharedpreferenceClass sharedController =
-  //   Get.put(SharedpreferenceClass());
 
   Future phoneNumberAuth(String phoneNumber) async {
-    // loginScrnGetxController.isLoadingFN(isLoad: true);
     firebaseAuth.verifyPhoneNumber(
       phoneNumber: '+91$phoneNumber',
       verificationCompleted: (phoneAuthCredential) async {
         await firebaseAuth.signInWithCredential(phoneAuthCredential);
       },
-      verificationFailed: (FirebaseAuthException e) {
-        // loginScrnGetxController.isLoadingFN(isLoad: false);
-        // controller.showSnackBar(
-        //     title: 'Phone Number Signin Failed',
-        //     content: e.toString(),
-        //     errorcolor: colorRed);
-      },
+      verificationFailed: (FirebaseAuthException e) {},
       codeSent: (verificationId, forceResendingToken) {
         verificationID = verificationId;
         // loginScrnGetxController.isLoadingFN(isLoad: false);

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hiero_job_seeker/application/auth/auth_provider.dart';
 import 'package:hiero_job_seeker/core/colors/colors.dart';
 import 'package:hiero_job_seeker/core/provider/provider.dart';
+import 'package:hiero_job_seeker/infrastructure/helper/sharedpreference.dart';
 import 'package:hiero_job_seeker/presentation/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => AuthRepositoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SharedPreferenceClass(),
         )
       ],
       child: GetMaterialApp(

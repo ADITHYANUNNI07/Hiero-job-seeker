@@ -5,6 +5,7 @@ import 'package:hiero_job_seeker/core/colors/colors.dart';
 import 'package:hiero_job_seeker/core/constants/constants.dart';
 import 'package:hiero_job_seeker/core/widgets/widget.dart';
 import 'package:hiero_job_seeker/core/provider/provider.dart';
+import 'package:hiero_job_seeker/presentation/signup/signup_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -403,5 +404,16 @@ class TextFieldClass {
         },
       ),
     );
+  }
+
+  clearAllSignupController() {
+    firstNameEditingController.clear();
+    secondNameEditingController.clear();
+    emailEditingController.clear();
+    passwordEditingController.clear();
+    phoneNoEditingController.clear();
+    addressEditingController.clear();
+    dateEditingConntroller.clear();
+    bioEditingController.clear();
   }
 }
